@@ -1,0 +1,10 @@
+# Claude files
+.claude/
+CLAUDE.md
+instructions.md
+
+# Other common files to ignore
+.DS_Store
+*.log
+node_modules/
+.env 

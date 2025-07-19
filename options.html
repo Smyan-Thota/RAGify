@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>YouTube Course Assistant - Settings</title>
+  <style>
+    body {
+      width: 450px;
+      min-height: 500px;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: #333;
+    }
+    
+    .container {
+      background: white;
+      margin: 20px;
+      border-radius: 12px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+      overflow: hidden;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 24px;
+      text-align: center;
+    }
+    
+    .header h1 {
+      margin: 0;
+      font-size: 24px;
+      font-weight: 600;
+    }
+    
+    .header .subtitle {
+      margin: 8px 0 0 0;
+      font-size: 14px;
+      opacity: 0.9;
+    }
+    
+    .content {
+      padding: 24px;
+    }
+    
+    .section {
+      margin-bottom: 32px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #e9ecef;
+    }
+    
+    .section:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+    
+    .section h2 {
+      margin: 0 0 16px 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: #495057;
+    }
+    
+    .form-group {
+      margin-bottom: 20px;
+    }
+    
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 500;
+      color: #495057;
+      font-size: 14px;
+    }
+    
+    .form-group input[type="password"],
+    .form-group input[type="text"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #e9ecef;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'Courier New', monospace;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      box-sizing: border-box;
+    }
+    
+    .form-group input:focus {
+      outline: none;
+      border-color: #667eea;
+      box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+    }
+    
+    .help-text {
+      font-size: 12px;
+      color: #6c757d;
+      margin-top: 6px;
+      line-height: 1.4;
+    }
+    
+    .help-text a {
+      color: #667eea;
+      text-decoration: none;
+    }
+    
+    .help-text a:hover {
+      text-decoration: underline;
+    }
+    
+    .button-group {
+      display: flex;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    
+    .btn {
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+    }
+    
+    .btn-secondary {
+      background: #f8f9fa;
+      color: #495057;
+      border: 2px solid #e9ecef;
+    }
+    
+    .btn-danger {
+      background: #dc3545;
+      color: white;
+    }
+    
+    .btn:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    .btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .status {
+      margin-top: 16px;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      display: none;
+    }
+    
+    .status.success {
+      background: #d1f2eb;
+      color: #0c7b69;
+      border: 1px solid #7dd3b0;
+    }
+    
+    .status.error {
+      background: #fadbd8;
+      color: #a93226;
+      border: 1px solid #f5b7b1;
+    }
+    
+    .storage-info {
+      background: #f8f9fa;
+      padding: 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #495057;
+      line-height: 1.5;
+    }
+    
+    .storage-info .metric {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    
+    .storage-info .metric:last-child {
+      margin-bottom: 0;
+    }
+    
+    .storage-info .metric-label {
+      font-weight: 500;
+    }
+    
+    .storage-info .metric-value {
+      font-family: 'Courier New', monospace;
+    }
+    
+    .instructions {
+      background: #f8f9fa;
+      padding: 16px;
+      border-radius: 8px;
+      border-left: 4px solid #667eea;
+    }
+    
+    .instructions h3 {
+      margin: 0 0 12px 0;
+      font-size: 16px;
+      color: #495057;
+    }
+    
+    .instructions ol {
+      margin: 0;
+      padding-left: 20px;
+    }
+    
+    .instructions li {
+      margin-bottom: 8px;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+    
+    .loading-spinner {
+      display: inline-block;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #667eea;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    .feature-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 16px;
+    }
+    
+    .feature-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #6c757d;
+    }
+    
+    .feature-icon {
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>🤖 YouTube Course Assistant</h1>
+      <p class="subtitle">Interactive Q&A for educational videos using AI</p>
+    </div>
+    
+    <div class="content">
+      <!-- API Configuration Section -->
+      <div class="section">
+        <h2>🔑 API Configuration</h2>
+        
+        <div class="form-group">
+          <label for="apiKey">OpenAI API Key</label>
+          <input type="password" id="apiKey" placeholder="sk-...">
+          <div class="help-text">
+            Your API key is stored securely in your browser. 
+            Get one from <a href="https://platform.openai.com/api-keys" target="_blank">OpenAI Platform</a>
+          </div>
+        </div>
+        
+        <div class="button-group">
+          <button id="saveBtn" class="btn btn-primary">
+            💾 Save Settings
+          </button>
+          <button id="testBtn" class="btn btn-secondary">
+            🧪 Test API Key
+          </button>
+        </div>
+        
+        <div id="status" class="status"></div>
+      </div>
+      
+      <!-- Storage Management Section -->
+      <div class="section">
+        <h2>💾 Storage Management</h2>
+        
+        <div class="storage-info" id="storageInfo">
+          <div class="loading-spinner"></div>
+          Loading storage information...
+        </div>
+        
+        <div class="button-group">
+          <button id="clearStorageBtn" class="btn btn-danger">
+            🗑️ Clear All Cached Data
+          </button>
+          <button id="refreshStorageBtn" class="btn btn-secondary">
+            🔄 Refresh Info
+          </button>
+        </div>
+      </div>
+      
+      <!-- Usage Instructions Section -->
+      <div class="section">
+        <h2>📖 How to Use</h2>
+        
+        <div class="instructions">
+          <h3>Getting Started:</h3>
+          <ol>
+            <li>Enter your OpenAI API key above and click "Save Settings"</li>
+            <li>Navigate to any YouTube video that has transcripts/captions</li>
+            <li>Look for the "🤖 Q&A Assistant" button near the video title</li>
+            <li>Click the button to open the assistant panel</li>
+            <li>Wait for transcript processing and embedding generation to complete</li>
+            <li>Start asking questions about the video content!</li>
+          </ol>
+        </div>
+        
+        <div class="feature-list">
+          <div class="feature-item">
+            <span class="feature-icon">🎯</span>
+            <span>Semantic search through video content</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🧠</span>
+            <span>AI-powered answers from transcripts</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">💾</span>
+            <span>Local caching for faster re-access</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">🔍</span>
+            <span>Debug info for developers</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- About Section -->
+      <div class="section">
+        <h2>ℹ️ About</h2>
+        <p style="font-size: 14px; color: #6c757d; line-height: 1.5; margin: 0;">
+          This extension uses OpenAI's text-embedding-3-small model for semantic search 
+          and GPT-3.5-turbo for generating answers. All transcript data is stored locally 
+          in your browser for privacy and faster access.
+        </p>
+      </div>
+    </div>
+  </div>
+  
+  <script src="options.js"></script>
+</body>
+</html>
